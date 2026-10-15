@@ -1,18 +1,14 @@
 name = "topological-entropic-periodic-table"
 version = "0.1.0"
-keywords = ["math"]
-defaultTargets = ["TopologicalEntropicPeriodicTable"]
+keywords = ["physics", "math"]
 
-[leanOptions]
-pp.unicode.fun = true # pretty-prints `fun a ↦ b`
-relaxedAutoImplicit = false
-weak.linter.mathlibStandardSet = true
-maxSynthPendingDepth = 3
+[[lean_lib]]
+name = "TopologicalEntropicPeriodicTable"
+srcDir = "."
+roots = ["TopologicalEntropicPeriodicTable"]
+defaultFacets = ["LeanLib.oleanFacet"]
 
 [[require]]
 name = "mathlib"
 scope = "leanprover-community"
-rev = "v4.35.0"
-
-[[lean_lib]]
-name = "TopologicalEntropicPeriodicTable"
+version = "=4.35.0"

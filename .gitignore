@@ -1,1 +1,27 @@
-/.lake
+# ====================================================================
+# Lean 4 & Lake Build Artifacts Exclusion Map
+# ====================================================================
+
+# Ignore the entire local package cache and dependencies folder
+.lake/
+
+# Ignore automatically generated build binaries and object files
+build/
+
+# Ignore environment lock files generated during compiling
+lake-manifest.json
+
+# ====================================================================
+# System & Editor Specific Temporary Files
+# ====================================================================
+
+# Windows thumbnail caches and folder layout structures
+Thumbs.db
+desktop.ini
+
+# Visual Studio Code workspace settings and active status caches
+.vscode/
+.DS_Store
+*.tmp
+*.bak
+
