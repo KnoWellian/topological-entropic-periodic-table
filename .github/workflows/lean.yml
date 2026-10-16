@@ -14,22 +14,10 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Install Elan (Lean Version Manager)
-      run: |
-        curl https://githubusercontent.com -sSf | sh -s -- -y --default-toolchain none
-        echo "$HOME/.elan/bin" >> $GITHUB_PATH
-
-    - name: Synchronize Package Cache
-      run: |
-        lake update
-        lake exe cache get
-
-    - name: Validate 4T Modules
-      run: |
-        lake build +TopologicalEntropicPeriodicTable.SOFTWARE_CORE
-        lake build +TopologicalEntropicPeriodicTable.PHYSICAL_HARDWARE_SHELL
-        lake build +TopologicalEntropicPeriodicTable.DYNAMIC_LOOM_KINEMATICS
-        lake build +TopologicalEntropicPeriodicTable.TENSOR_BEDROCK_FLOORS
+    - name: Invoke Official Lean Prover Compiler
+      uses: leanprover/lean-action@v1
+      with:
+        auto-cache: true
 
   verify_vhdl_hardware:
     name: GHDL Hardware Simulation Pipeline
