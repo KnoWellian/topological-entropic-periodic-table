@@ -1,7 +1,7 @@
 -- ====================================================================
 -- Copyright (c) 2026 David Noel Lynch. All rights reserved.
 -- Project: Topological Entropic Cosmology Hardware Translation
--- Module: KUT_Optical_Splay_tb (Simulation Testbench Framework)
+-- Module: KUT_Optical_Splay_tb (Expanded Simulation Testbench)
 -- ====================================================================
 
 library IEEE;
@@ -78,11 +78,19 @@ begin
         atomic_number_tb <= STD_LOGIC_VECTOR(to_unsigned(3, 8));
         wait for CLK_PERIOD;
 
-        -- Test Case 4: Iron Node Peak (Z = 26) -> Target: Channel 26, Group: Transition Band
+        -- Test Case 4: Nitrogen-14 (Z = 7) -> Target: Channel 7, Group: Other/Intermediate
+        atomic_number_tb <= STD_LOGIC_VECTOR(to_unsigned(7, 8));
+        wait for CLK_PERIOD;
+
+        -- Test Case 5: Oxygen-16 (Z = 8) -> Target: Channel 8, Group: Other/Intermediate
+        atomic_number_tb <= STD_LOGIC_VECTOR(to_unsigned(8, 8));
+        wait for CLK_PERIOD;
+
+        -- Test Case 6: Iron Node Peak (Z = 26) -> Target: Channel 26, Group: Transition Band
         atomic_number_tb <= STD_LOGIC_VECTOR(to_unsigned(26, 8));
         wait for CLK_PERIOD;
 
-        -- Test Case 5: Oganesson Boundary Cutoff (Z = 118) -> Target: Channel 54, Group: Octave Closure
+        -- Test Case 7: Oganesson Boundary Cutoff (Z = 118) -> Target: Channel 54, Group: Octave Closure
         atomic_number_tb <= STD_LOGIC_VECTOR(to_unsigned(118, 8));
         wait for CLK_PERIOD * 2;
 
