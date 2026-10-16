@@ -1,0 +1,56 @@
+name: 4T-KUT Unified Logic & Hardware CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  verify_lean_proofs:
+    name: Lean 4 Kernel Proof Verification
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Install Elan (Lean Version Manager)
+      run: |
+        curl https://githubusercontent.com -sSf | sh -s -- -y --default-toolchain none
+        echo "$HOME/.elan/bin" >> $GITHUB_PATH
+
+    - name: Synchronize Package Cache
+      run: |
+        lake update
+        lake exe cache get
+
+    - name: Validate 4T Modules
+      run: |
+        lake build +TopologicalEntropicPeriodicTable.SOFTWARE_CORE
+        lake build +TopologicalEntropicPeriodicTable.PHYSICAL_HARDWARE_SHELL
+        lake build +TopologicalEntropicPeriodicTable.DYNAMIC_LOOM_KINEMATICS
+        lake build +TopologicalEntropicPeriodicTable.TENSOR_BEDROCK_FLOORS
+
+  verify_vhdl_hardware:
+    name: GHDL Hardware Simulation Pipeline
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Install GHDL Compiler Suite
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ghdl
+
+    - name: Analyze Optical Router Source
+      run: ghdl -a KUT_Optical_Splay.vhd
+
+    - name: Analyze Testbench Stimulus Matrix
+      run: ghdl -a KUT_Optical_Splay_tb.vhd
+
+    - name: Elaborate Simulation Workspace
+      run: ghdl -e KUT_Optical_Splay_tb
+
+    - name: Execute Electro-Optic Waveguide Run
+      run: ghdl -r KUT_Optical_Splay_tb --stop-time=50ns
