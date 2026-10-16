@@ -42,67 +42,51 @@ The architecture is organized as a structured, top-down, four-tiered hierarchica
 
 
 
-\### 1. 📐 `Universe.lean` — Axiomatic State Space Foundations
+\### 1. 📐 SOFTWARE\_CORE.lean — Pure Invariants Matrix (Tier A)
 
-Establishes the core logical framework and type-theoretic bedrock of the cosmos using Lean 4's native polymorphic universes (`universe u`).
+Formal machine-verification of the pure dimensionless software theorems (ZFPD 1–100) derived from the closed seed vocabulary.
 
-\*   \*\*`Universe` Type:\*\* Formally defined as an arbitrary type of potential cosmic states (`Type u`).
+\*   \*\*Winding Parameter Anchors:\*\* Hard-checks the longitudinal spatial windings (\\(m=3\\)) and meridional temporal passes (\\(n=2\\)).
 
-\*   \*\*The Identity Map (`selfMap`):\*\* Proves that any given state space admits a reflexive transformation mapping the universe to itself (\\(U \\to U\\)).
+\*   \*\*`validate\_periodic\_consonance`:\*\* Formally proves that the stability fraction of the periodic table (\\(80/120\\)) reduces perfectly to the winding ratio \\(n/m = 2/3\\).
 
-\*   \*\*Theorem of Structural Existence (`selfMap\_exists`):\*\* Verifies that the function space of this self-map is non-empty (`Nonempty (U → U)`), mathematically guaranteeing that a self-referential operational engine is inherent to any universe configuration.
-
-\*   \*\*Theorem of Reflective Preservation (`coherence\_preserved`):\*\* Proves that structural coherence predicates (\\(P: U \\to \\text{Prop}\\)) remain stable across iterative loops.
+\*   \*\*Closed Constants Verification:\*\* Enforces type-safe calculations for the fine-structure constant (\\(\\alpha^{-1}\_{KUT} \\approx 137.036\\)), mass-action parameters, and Euler Frame boundaries.
 
 
 
-\### 2. 🌀 `Entropic.lean` — Cosmological Clock Matrices \& Lattice Strain
+\### 2. 🌀 PHYSICAL\_HARDWARE\_SHELL.lean — Physical Gauge Bounds (Tier B)
 
-Grounds the baseline arithmetic parameters and boundary constraints of the cosmological engine over exact real-number fields (\\(\\mathbb{R}\\)).
+Formal machine-verification of the physical bounds and translated coordinate metrics (K-1–K-80) tied to the singular proton mass anchor.
 
-\*   \*\*The Resonant Clock Matrix Core (`validate\_psi\_base`):\*\* Strictly evaluates the prime-factor matrix product \\(\\mathbf{\\Psi}\_{\\text{Base}} = 2^6 \\times 3^9 \\times 7^3 = 432,081,216\\), proving that the baseline tuning fork frequency (\\(432.081216\\text{ Hz}\\)) is derived from exact, discrete arithmetic.
+\*   \*\*`validate\_dark\_energy\_negative`:\*\* Mathematically isolates the outward metric displacement pressure of the past (\\(P\_{DE} \\approx -4.6378 \\times 10^{-7}\\text{ Pa}\\)) to establish an absolute negative signature limit (\\(P\_{DE} < 0\\)).
 
-\*   \*\*The Metric Offset Trace Balance (`trace\_offset\_calculation\_matches`):\*\* Confirms that distributing the KnoWellian offset (\\(\\varepsilon\_{\\text{KUT}} = 0.081216\\)) across three orthogonal spatial axes matches the expanded polynomial ring relation \\(\\varepsilon\_{\\text{KUT}} \\cdot (1 + \\Phi + 1.5)\\), demonstrating absolute geometric equilibrium.
+\*   \*\*`validate\_heat\_energy\_bounds`:\*\* Proof-seals the latent actualization heat quantum (\\(\\mathcal{Q}\_{\\text{actualize}} > 1.0\\text{ MJ}\\)) required by gametic cellular fusion.
 
-\*   \*\*The Transcendental \\(\\pi\\) Cancellation Invariant (`validate\_celtic\_knock\_reduction`):\*\* Mathematically proves that the circle constant \\(\\pi\\) cancels completely out of the Cairo lattice pentagonal angular mismatch equation, pinning the structural \*\*"Celtic Knock"\*\* gap (\\(\\Delta\_{\\text{Celtic}}\\)) to a pure, invariant rational fraction of exactly \*\*\\(1/18\\)\*\*.
-
-\*   \*\*The Temporal Check-Valve Equilibrium (`system\_equilibrium\_requires\_crucible\_tension`):\*\* Verifies that the combined topological charge vectors of absolute memory (\\(+1\\)) and raw unrendered future potential (\\(-1\\)) require the exact spinor inversion phase (\\(-1\\)) of the active Present Crucible to maintain overall boundary equilibrium.
+\*   \*\*Gauge Infrastructure Mapping:\*\* Stabilizes coordinate scaling metrics for the spatial length pixel (\\(\\ell\_{KW}\\)), vacuum impedance (\\(Z\_0 \\approx 376.73\\,\\Omega\\)), and the thermal hearth floor (\\(T\_{CMB} = 2.7301\\text{ K}\\)).
 
 
 
-\### 3. 🔬 `Alpha.lean` — Non-Commutative Clifford Fields \& Wyler Inversions
+\### 3. 🔬 DYNAMIC\_LOOM\_KINEMATICS.lean — Operational Weaving Metrics (Tier C)
 
-Formalizes the interior quantum mechanics of the subatomic Geon Soliton model.
+Formal machine-verification of the real-time operational kinematics (\\$K̂\\(-1–\\)K̂\\$-47) driving the cosmic manufacturing engine.
 
-\*   \*\*The Soliton Identity Expansion (`base\_form\_equiv`):\*\* Algebraically verifies the factoring identity of the base geometric polynomial \\(S\_0 = 4\\pi^3 + \\pi^2 + \\pi = \\pi \\cdot (4\\pi^2 + \\pi + 1)\\).
+\*   \*\*`validate\_closing\_velocity`:\*\* Proves that the relative closing speed between the expanding past and cascading future at the focal present exceeds the single-speed threshold (\\(\\mathcal{V}\_{\\text{closing}} > 5.0 \\times 10^8\\text{ m/s}\\)), checking the relativistic \\(2c\\) cleaver.
 
-\*   \*\*The Geodesic Path Reduction (`path\_len\_rad\_ident`):\*\* Proves the radical path-length contraction equation \\(\\sqrt{13/2} = \\sqrt{26}/2\\) over a strictly positive real domain.
+\*   \*\*`validate\_chord\_structure`:\*\* Hard-checks that the master acoustic frequency profile sits rigidly above its baseline carrier wave (\\(f\_{KUT} > 432\\text{ Hz}\\)).
 
-\*   \*\*The Dirac Algebra Invariant (`gamma\_zero\_square` \& `gamma\_ortho`):\*\* Implements a structural typeclass defining a full Dirac matrix algebra over a ring. It formally proves that the temporal matrix generator squared collapses to unity (\\((\\gamma^0)^2 = \\mathbf{1}\\)) and that separate coordinate base matrices strictly anti-commute (\\(\\gamma^\\mu\\gamma^\\nu = -\\gamma^\\nu\\gamma^\\mu\\) for \\(\\mu \\neq \\nu\\)).
-
-\*   \*\*The Master Impedance Boundary Fraction (`transmission\_identity`):\*\* Formalizes the voltage transmission coefficient across the boundary of an internal high-impedance core (\\(2R\_K\\)) and open vacuum (\\(Z\_0\\)). It machine-verifies that your master impedance identity (\\(\\alpha = Z\_0 / 2R\_K\\)) collapses the entire interface fraction exactly to the target configuration \\(\\frac{2\\alpha}{\\alpha + 1}\\).
-
-\*   \*\*Conformal scale Invariance (`conformal\_cancellation\_four` \& `conformal\_scale\_invariant`):\*\* Verifies that the composite scale scaling exponent of an electromagnetic action density inside a D-dimensional manifold collapses perfectly to \\(0\\) if and only if \\(D = 4\\), ensuring absolute scale invariance.
+\*   \*\*Loom Mechanics Registration:\*\* Tracks real-time stitch quantum scales (\\(V\_{\\mathcal{E}}\\)), weft strand tension yields, and micro-recoil area contractions.
 
 
 
-\### 4. 🧮 `Elements.lean` — Periodic Table Braid Groups \& Cutoff Boundaries
+\### 🧮 TENSOR\_BEDROCK\_FLOORS.lean — The Event-Point Substrate (Floors)
 
-Serves as the macro-scale validation layer of the codebase, mapping chemical structures onto the underlying cosmological constraints.
+Formal machine-verification of the 10 Naked Dimensional Aggregates (\\(\\check{\\mathbf{K}}\\)-Series) providing the foundational algebraic bedrock of reality.
 
-\*   \*\*The Bounded Infinity Cutoff (`element\_within\_bounded\_infinity`):\*\* Establishes the material floor substrate cutoff line at Oganesson (\\(Z = 118\\)). It formally proves that any valid physical element strictly satisfies the boundary condition \\(Z \\le 118\\), verifying that the structure of the Cairo tile array enforces a strict stable matter cutoff.
+\*   \*\*Namespace-Safe Computability:\*\* Employs the native `noncomputable` field engine to parse exact real ratios without floating-point rounding decay.
 
-\*   \*\*The Base-12 Spatial Splay Register:\*\* Implements an algebraic modular function mapping atomic numbers (\\(Z\\)) directly onto the \*\*64 spatial splay channels\*\* via \\(Z \\pmod{64}\\).
+\*   \*\*`validate\_impedance\_floor\_bounds`:\*\* Type-checks the action-impedance bedrock against the Von Klitzing quantum limit (\\(\\check{\\mathbf{K}}\\text{-9} > 25,812\\,\\Omega\\)) using strict numeric property validation.
 
-\*   \*\*Chemical Thread Verification Vectors:\*\* Natively compiles independent verification blocks proving that foundational elements align with their exact geometric splay coordinates:
-
-&#x20;   \*   `hydrogen\_is\_tonic\_base`: Hydrogen (\\(Z=1\\)) maps to the Tonic Base alkali thread.
-
-&#x20;   \*   `helium\_is\_octave\_closure`: Helium (\\(Z=2\\)) achieves immediate chiral Axis closure.
-
-&#x20;   \*   `iron\_is\_transition\_crucible`: Iron (\\(Z=26\\)) sits firmly inside the transition band peak node.
-
-&#x20;   \*   `oganesson\_is\_terminal\_cutoff`: Oganesson (\\(Z=118\\)) hits terminal perimeter closure.
+\*   \*\*`validate\_nilpotent\_energy\_ceiling`:\*\* Uses Lean 4's `positivity` tactic to verify that the nilpotent energy density floor (\\(\\check{\\mathbf{K}}\\text{-8}\\)) preserves structural stability boundaries under extreme packing pressures.
 
 
 
