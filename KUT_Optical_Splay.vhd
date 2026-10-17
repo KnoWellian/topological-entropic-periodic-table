@@ -32,17 +32,17 @@ architecture Behavioral of KUT_Optical_Splay is
 begin
 
     -- Synchronous Process driving the Electro-Optic Waveguide Routing Tree
-    process(clk, rst_n)
+    routing_proc: process(clk, rst_n)
         variable z_int : integer range 0 to 255;
-    process_begin:
+    begin
         if rst_n = '0' then
             splay_channel <= (others => '0');
             routing_group <= G_OTHER_CHANNEL;
         elsif rising_edge(clk) then
             z_int := to_integer(unsigned(atomic_number));
             
-            -- 1. Compute the exact 64-channel splay spatial splay register alignment
-            splay_channel <= STD_LOGIC_VECTOR(to_unsigned(z_int rem 64, 6));
+            -- 1. Hardware-optimal spatial splay register alignment (Z mod 64 ≡ bits 5 downto 0)
+            splay_channel <= atomic_number(5 downto 0);
             
             -- 2. Decode the incoming thread parameters into verified laser group vectors
             case z_int is
@@ -58,6 +58,6 @@ begin
                     routing_group <= G_OTHER_CHANNEL;    -- Intermediate unmodulated splays
             end case;
         end if;
-    end process;
+    end process routing_proc;
 
 end Behavioral;

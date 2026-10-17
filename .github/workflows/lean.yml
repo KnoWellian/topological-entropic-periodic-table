@@ -17,7 +17,11 @@ jobs:
     - name: Invoke Official Lean Prover Compiler
       uses: leanprover/lean-action@v1
       with:
+        # Crucial: downloads precompiled Mathlib olean cache to prevent OOM/Timeout
+        use-mathlib-cache: true
         auto-cache: true
+        # If your lakefile.lean is in a subfolder, uncomment and set the path:
+        # manifest-dir: .
 
   verify_vhdl_hardware:
     name: GHDL Hardware Simulation Pipeline
@@ -26,19 +30,36 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Install GHDL Compiler Suite
+    - name: Install GHDL Simulation Suite
       run: |
         sudo apt-get update
         sudo apt-get install -y ghdl
 
-    - name: Analyze Optical Router Source
-      run: ghdl -a KUT_Optical_Splay.vhd
+    - name: Locate VHDL Source Files
+      id: find_files
+      run: |
+        # Locate files even if stored in subdirectories (e.g. vhdl/, hardware/, src/)
+        SRC=$(find . -name "KUT_Optical_Splay.vhd" | head -n 1)
+        TB=$(find . -name "KUT_Optical_Splay_tb.vhd" | head -n 1)
+        if [ -z "$SRC" ] || [ -z "$TB" ]; then
+          echo "Error: Could not locate VHDL source files in repository."
+          exit 1
+        fi
+        echo "src_path=$(dirname $SRC)" >> $GITHUB_OUTPUT
+        echo "Found source files in: $(dirname $SRC)"
 
-    - name: Analyze Testbench Stimulus Matrix
-      run: ghdl -a KUT_Optical_Splay_tb.vhd
+    - name: Analyze Optical Router Source & Testbench (VHDL-2008)
+      working-directory: ${{ steps.find_files.outputs.src_path }}
+      run: |
+        ghdl -a --std=08 --ieee=synopsys KUT_Optical_Splay.vhd
+        ghdl -a --std=08 --ieee=synopsys KUT_Optical_Splay_tb.vhd
 
     - name: Elaborate Simulation Workspace
-      run: ghdl -e KUT_Optical_Splay_tb
+      working-directory: ${{ steps.find_files.outputs.src_path }}
+      run: |
+        ghdl -e --std=08 --ieee=synopsys KUT_Optical_Splay_tb
 
     - name: Execute Electro-Optic Waveguide Run
-      run: ghdl -r KUT_Optical_Splay_tb --stop-time=50ns
+      working-directory: ${{ steps.find_files.outputs.src_path }}
+      run: |
+        ghdl -r --std=08 --ieee=synopsys KUT_Optical_Splay_tb --stop-time=50ns --assert-level=error
