@@ -1,7 +1,13 @@
+import Mathlib.Basic.Real.Basic
 import Mathlib.Analysis.Real.Sqrt
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import Mathlib.Algebra.Polynomial.Basic
 import Mathlib.Algebra.Polynomial.Eval.Defs
+import Mathlib.Data.Complex.Basic
+import Mathlib.Tactic.Ring
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.NormNum
+import Mathlib.Tactic.Positivity
 
 /-!
 Copyright (c) 2026 David Noel Lynch. All rights reserved.
@@ -56,24 +62,11 @@ noncomputable def cliffVelSq (p q : ℝ) : ℝ := (1/2) * (p^2 + q^2)
 theorem diapente_metric_const : cliffVelSq 3 2 = 13/2 := by
   dsimp [cliffVelSq]; ring
 
-/-- Theorem verifying the radical path length reduction. -/
+/-- Theorem verifying the radical path length reduction: √(13/2) = √26 / 2. -/
 theorem path_len_rad_ident : sqrt (13/2) = sqrt 26 / 2 := by
-  have h1 : (13/2 : ℝ) ≥ 0 := by linarith
-  have h2 : (26 : ℝ) ≥ 0 := by linarith
-  have h_sq : (sqrt (13/2))^2 = (sqrt 26 / 2)^2 := by
-    rw [sq_sqrt h1]
-    have h_div : (sqrt 26 / 2)^2 = (sqrt 26)^2 / 2^2 := by ring
-    rw [h_div, sq_sqrt h2]; ring
-  have h1_pos : (13/2 : ℝ) > 0 := by linarith
-  have h_pos_A : 0 < sqrt (13/2) := sqrt_pos.mpr h1_pos
-  have h_pos_B : 0 ≤ sqrt 26 / 2 := by
-    have h_sqrt26 : 0 ≤ sqrt 26 := sqrt_nonneg 26; linarith
-  have h_cases := sq_eq_sq_iff_eq_or_eq_neg.mp h_sq
-  rcases h_cases with h_match | h_neg
-  · exact h_match
-  · have h_combined : sqrt (13/2) + sqrt 26 / 2 = 0 := by linarith
-    have h_false : False := by linarith
-    exact False.elim h_false
+  have h_frac : (13/2 : ℝ) = 26 / 4 := by norm_num
+  rw [h_frac, sqrt_div (by norm_num)]
+  norm_num
 
 /-- The analytical definition of Wyler's Conformal Inverse Alpha. -/
 noncomputable def wylerInvAlpha : ℝ :=
@@ -125,8 +118,6 @@ theorem gamma_ortho {M : Type} [Ring M] [Algebra ℝ M] [h : DiracAlg M] (μ ν 
 -- SIXTEEN COMPONENT CLIFFORD BASIS LAYER
 -- ==========================================
 
-open scoped Polynomial
-
 /-- Inductive classification of the 16 independent basis elements. -/
 inductive CliffordBasis
   | I
@@ -175,7 +166,7 @@ noncomputable def trefoilAlexanderPoly : Polynomial ℤ := Polynomial.X ^ 2 - Po
 theorem alexander_poly_eval_one : (trefoilAlexanderPoly).eval 1 = 1 := by
   dsimp [trefoilAlexanderPoly]; simp
 
-/-- Theorem machine-verifying evaluation complex roots. -/
+/-- Theorem machine-verifying evaluation at complex roots. -/
 theorem alexander_poly_complex_roots (z : ℂ) (h : z ^ 2 - z + 1 = 0) :
     (trefoilAlexanderPoly.map (Int.castRingHom ℂ)).eval z = 0 := by
   dsimp [trefoilAlexanderPoly]
@@ -194,13 +185,12 @@ noncomputable def transmissionCoeff (Z_0 R_K : ℝ) : ℝ :=
 /-- Theorem machine-verifying that your master impedance identity (α)
 collapses the transmission fraction exactly to 2α / (α + 1). -/
 theorem transmission_identity (Z_0 R_K α : ℝ) (h_alpha : α = Z_0 / (2 * R_K))
-    (h_pos_RK : R_K ≠ 0) (h_denom : α + 1 ≠ 0) (h_line : Z_0 + 2 * R_K ≠ 0) :
+    (h_pos_RK : R_K ≠ 0) (h_denom : α + 1 ≠ 0) (_ : Z_0 + 2 * R_K ≠ 0) :
     transmissionCoeff Z_0 R_K = (2 * α) / (α + 1) := by
   dsimp [transmissionCoeff]
   have h_alpha_denom : Z_0 / (2 * R_K) + 1 ≠ 0 := by
-    have h_sync := h_denom
     rw [← h_alpha]
-    exact h_sync
+    exact h_denom
   rw [h_alpha]
   have h_rk_scale : 2 * R_K ≠ 0 := by
     intro h_zero
@@ -213,20 +203,11 @@ theorem transmission_identity (Z_0 R_K α : ℝ) (h_alpha : α = Z_0 / (2 * R_K)
 -- CONFORMAL WEYL CANCELLATION LAYER
 -- ==========================================
 
-/-- The composite scale scaling exponent of an electromagnetic action
-density inside an arbitrary D-dimensional spacetime manifold. -/
 def conformalExponent (D : Nat) : Int := (D : Int) - 4
 
-/-- Theorem machine-verifying the central proposition of Act III:
-The conformal scale factor Ω vanishes from the master action density
-identically if and only if the spacetime dimension is exactly 4. -/
 theorem conformal_cancellation_four : conformalExponent 4 = 0 := by
-  dsimp [conformalExponent]
-  rfl
+  dsimp [conformalExponent]; rfl
 
-/-- Theorem proving that any real scale factor Ω raised to the composite
-KnoWellian conformal exponent in 4 dimensions collapses identically to 1,
-ensuring absolute scale invariance. Unused non-zero hypothesis omitted. -/
 theorem conformal_scale_invariant (Ω : ℝ) (_ : Ω ≠ 0) :
     Ω ^ (conformalExponent 4) = 1 := by
   change Ω ^ (0 : Int) = 1
