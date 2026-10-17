@@ -1,14 +1,13 @@
-import Mathlib.Basic.Real.Basic
+import Mathlib.Data.Real.Basic
 import Mathlib.Analysis.Real.Sqrt
 import Mathlib.Tactic.Ring
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Positivity
+import Mathlib.Tactic.NormNum
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import Mathlib.Analysis.SpecialFunctions.Exponential
 
 /-!
-Copyright (c) 2026 David Noel Lynch. All rights reserved.
-Released under Apache 2.0 license as described in the file LICENSE.
-Authors: David Noel Lynch (~3K) & The ~3K Collaborative
-
 # 4T-KUT Software Core Invariants Matrix (Tier A)
 Formal machine-verification of the pure dimensionless software theorems (ZFPD 1-100).
 -/
@@ -19,10 +18,10 @@ def m : ℝ := 3
 def n : ℝ := 2
 def ℓ : ℝ := 6
 
-/-- The Golden Ratio vacuum substrate metric growth constant (Φ) -/
-noncomputable def Φ : ℝ := (1 + Real.sqrt 5) / 2
+/-- The Cosmic Octave Multiplier (Omega = 10^24) -/
+noncomputable def Omega : ℝ := (10 : ℝ)^(24 : ℤ)
 
-/-- The KnoWellian Master Friction Seed (ε_KW) -/
+noncomputable def Φ : ℝ := (1 + Real.sqrt 5) / 2
 noncomputable def ε_KW : ℝ := Φ - (3 / 2)
 
 -- ====================================================================
@@ -50,5 +49,28 @@ theorem validate_periodic_consonance : ZFPD_085_PeriodicConsonance = n / m := by
 
 theorem validate_spatial_dimension : ZFPD_024_SpatialDimension = 3 := by
   dsimp [ZFPD_024_SpatialDimension, m]
+
+theorem validate_alpha_bounds : ZFPD_003_InvAlpha > 0 := by
+  have h_sqrt5 : (2 : ℝ) < Real.sqrt 5 := by
+    have h : (2 : ℝ)^2 < 5 := by norm_num
+    have h2 := Real.sqrt_lt_sqrt (by norm_num) h
+    rwa [Real.sqrt_sq (by norm_num)] at h2
+
+  have h_eps : 0 < ε_KW := by
+    rw [validate_friction_identity]
+    linarith
+
+  have h_term1 : 0 < 12 * Real.pi * (2 + Φ) := by
+    have h_phi : 0 < 2 + Φ := by
+      dsimp [Φ]
+      positivity
+    have h_pi : 0 < Real.pi := Real.pi_pos
+    positivity
+
+  have h_term2 : 0 < (16 / 3 : ℝ) * ε_KW := by
+    positivity
+
+  dsimp [ZFPD_003_InvAlpha]
+  linarith
 
 end KnoWellianSoftware
