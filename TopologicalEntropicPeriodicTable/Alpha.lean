@@ -144,8 +144,7 @@ theorem clifford_basis_dim_sixteen :
     rankDimension (CliffordBasis.Vector 0 (by linarith)) +
     rankDimension (CliffordBasis.Bivector 0 1 (by constructor <;> linarith)) +
     rankDimension (CliffordBasis.AxialVector 0 (by linarith)) +
-    rankDimension CliffordBasis.Pseudoscalar = 16 := by
-  dsimp [rankDimension]; rfl
+    rankDimension CliffordBasis.Pseudoscalar = 16 := rfl
 
 -- ==========================================
 -- EDDINGTON INTERACTION MATRIX LAYER
@@ -155,8 +154,7 @@ theorem clifford_basis_dim_sixteen :
 def symDim (n : Nat) : Nat := (n * (n + 1)) / 2
 
 /-- Theorem verifying the 136 symmetric interaction matrix terms. -/
-theorem eddington_symmetric_terms : symDim 16 = 136 := by
-  dsimp [symDim]; rfl
+theorem eddington_symmetric_terms : symDim 16 = 136 := rfl
 
 -- ==========================================
 -- TOPOLOGICAL KNOT POLYNOMIAL LAYER
@@ -167,7 +165,8 @@ noncomputable def trefoilAlexanderPoly : Polynomial ℤ := Polynomial.X ^ 2 - Po
 
 /-- Theorem machine-verifying evaluation at 1. -/
 theorem alexander_poly_eval_one : (trefoilAlexanderPoly).eval 1 = 1 := by
-  dsimp [trefoilAlexanderPoly]; simp
+  dsimp [trefoilAlexanderPoly]
+  simp
 
 /-- Theorem machine-verifying evaluation at complex roots. -/
 theorem alexander_poly_complex_roots (z : ℂ) (h : z ^ 2 - z + 1 = 0) :
@@ -200,7 +199,6 @@ theorem transmission_identity (Z_0 R_K α : ℝ) (h_alpha : α = Z_0 / (2 * R_K)
     have h_div : R_K = 0 := by linarith
     exact h_pos_RK h_div
   field_simp [h_rk_scale, h_alpha_denom]
-  ring
 
 -- ==========================================
 -- CONFORMAL WEYL CANCELLATION LAYER
@@ -208,8 +206,7 @@ theorem transmission_identity (Z_0 R_K α : ℝ) (h_alpha : α = Z_0 / (2 * R_K)
 
 def conformalExponent (D : Nat) : Int := (D : Int) - 4
 
-theorem conformal_cancellation_four : conformalExponent 4 = 0 := by
-  dsimp [conformalExponent]; rfl
+theorem conformal_cancellation_four : conformalExponent 4 = 0 := rfl
 
 theorem conformal_scale_invariant (Ω : ℝ) (_ : Ω ≠ 0) :
     Ω ^ (conformalExponent 4) = 1 := by
