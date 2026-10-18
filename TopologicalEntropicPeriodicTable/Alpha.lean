@@ -3,7 +3,7 @@ import Mathlib.Analysis.Real.Sqrt
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import Mathlib.Algebra.Polynomial.Basic
 import Mathlib.Algebra.Polynomial.Eval.Defs
-import Mathlib.Data.Complex.Basic
+import Mathlib.Basic.Complex.Basic
 import Mathlib.Tactic.Ring
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.NormNum
@@ -66,7 +66,10 @@ theorem diapente_metric_const : cliffVelSq 3 2 = 13/2 := by
 theorem path_len_rad_ident : sqrt (13/2) = sqrt 26 / 2 := by
   have h_frac : (13/2 : ℝ) = 26 / 4 := by norm_num
   rw [h_frac, sqrt_div (by norm_num)]
-  norm_num
+  have h4 : sqrt 4 = 2 := by
+    have h_sq : (2 : ℝ)^2 = 4 := by norm_num
+    rw [← h_sq, sqrt_sq (by norm_num)]
+  rw [h4]
 
 /-- The analytical definition of Wyler's Conformal Inverse Alpha. -/
 noncomputable def wylerInvAlpha : ℝ :=

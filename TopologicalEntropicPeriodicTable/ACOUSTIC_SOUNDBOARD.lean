@@ -61,18 +61,19 @@ theorem validate_lynch_defect_range :
          KnoWellianSoftware.F_KW,
          KnoWellianSoftware.n,
          KnoWellianSoftware.m]
-  have h_sqrt5 : (2 : ℝ) < Real.sqrt 5 := by
+  have h_sqrt5_low : (2 : ℝ) < Real.sqrt 5 := by
     have h : (2 : ℝ)^2 < 5 := by norm_num
+    have h2 := Real.sqrt_lt_sqrt (by norm_num) h
+    rwa [Real.sqrt_sq (by norm_num)] at h2
+  have h_sqrt5_high : Real.sqrt 5 < 2.25 := by
+    have h : (5 : ℝ) < (2.25 : ℝ)^2 := by norm_num
     have h2 := Real.sqrt_lt_sqrt (by norm_num) h
     rwa [Real.sqrt_sq (by norm_num)] at h2
   have h_eps : KnoWellianSoftware.ε_KW = (Real.sqrt 5 - 2) / 2 :=
     KnoWellianSoftware.validate_friction_identity
   rw [h_eps]
   have h5_sq : (Real.sqrt 5)^2 = 5 := Real.sq_sqrt (by norm_num)
-  have h5_cube : (Real.sqrt 5)^3 = 5 * Real.sqrt 5 := by
-    rw [pow_succ, pow_two, h5_sq]; ring
   constructor <;> nlinarith
-
 /-- Theorem: Cosmic phase-reset period corresponds to ~3.4 minutes (200s < τ < 210s) -/
 theorem validate_cosmic_beat_period :
     KnoWellianLoom.K_Hat_33_PhaseResetPeriod > 200 ∧

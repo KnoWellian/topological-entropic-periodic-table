@@ -12,3 +12,8 @@ defaultFacets = ["LeanLib.oleanFacet"]
 name = "mathlib"
 scope = "leanprover-community"
 version = "=4.35.0"
+
+[[dependency]]
+name = "doc-gen4"
+src = { git = "https://github.com/leanprover/doc-gen4", rev = "main" }
+

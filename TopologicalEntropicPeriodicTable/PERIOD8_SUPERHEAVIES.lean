@@ -20,6 +20,8 @@ Formal machine-verification of:
 
 namespace KnoWellianSuperheavies
 
+noncomputable section
+
 -- ====================================================================
 -- SECTION 1: ELEMENT 120 (³⁰⁴Ubn) RELATIVISTIC SUPER-AXLE
 -- ====================================================================
@@ -28,10 +30,10 @@ namespace KnoWellianSuperheavies
 def Z_Ubn : ℕ := 120
 
 /-- Relativistic core velocity fraction: v_1s / c ≈ 120 / 137.036 -/
-noncomputable def v_1s_rel_fraction : ℝ := 120 / 137.035999
+def v_1s_rel_fraction : ℝ := 120 / 137.035999
 
 /-- Relativistic Lorentz mass increase factor γ -/
-noncomputable def gamma_rel_Ubn : ℝ :=
+def gamma_rel_Ubn : ℝ :=
   1 / Real.sqrt (1 - v_1s_rel_fraction^2)
 
 /-- 8p Spin-orbit splitting: ΔE_SO = E(8p_3/2) - E(8p_1/2) ≈ 11.83 eV -/
@@ -49,19 +51,17 @@ theorem validate_super_axle_capacity : super_axle_electron_capacity = 4 := by
 /-- Theorem: Relativistic Lorentz factor γ exceeds 2.0 at Z=120 -/
 theorem validate_relativistic_gamma_Ubn : gamma_rel_Ubn > 2.0 := by
   dsimp [gamma_rel_Ubn, v_1s_rel_fraction]
-  have h_frac_ub : (120 : ℝ) / 137.035999 < 0.88 := by norm_num
-  have h_frac_lb : (120 : ℝ) / 137.035999 > 0.87 := by norm_num
-  have h_diff_pos : 0 < 1 - ((120 : ℝ) / 137.035999)^2 := by
-    nlinarith
-  have h_diff_ub : 1 - ((120 : ℝ) / 137.035999)^2 < 0.25 := by
-    nlinarith
-  have h_sqrt_ub : Real.sqrt (1 - ((120 : ℝ) / 137.035999)^2) < 0.5 := by
-    rw [Real.sqrt_lt' (by norm_num)]
-    left
-    exact h_diff_ub
+  have h_inside_pos : 0 < 1 - ((120 : ℝ) / 137.035999)^2 := by norm_num
   have h_sqrt_pos : 0 < Real.sqrt (1 - ((120 : ℝ) / 137.035999)^2) :=
-    Real.sqrt_pos.mpr h_diff_pos
-  exact (one_div_lt (by norm_num) h_sqrt_pos).mpr h_sqrt_ub
+    Real.sqrt_pos.mpr h_inside_pos
+  -- Convert `1 / sqrt(...) > 2.0` into `1 > 2.0 * sqrt(...)`
+  rw [gt_iff_lt, lt_div_iff₀ h_sqrt_pos]
+  -- Prove that the term inside the root is smaller than 0.5^2 = 0.25
+  have h_bound : 1 - ((120 : ℝ) / 137.035999)^2 < (0.5 : ℝ)^2 := by norm_num
+  -- Extract square root of both sides
+  have h_sqrt_lt := Real.sqrt_lt_sqrt (by norm_num) h_bound
+  rw [Real.sqrt_sq (by norm_num)] at h_sqrt_lt
+  linarith
 
 -- ====================================================================
 -- SECTION 2: THE 18-ELEMENT g-BLOCK & PERIOD 8 CAPACITY
@@ -137,7 +137,8 @@ def A_targ : ℝ := 249
 def A_compound : ℝ := A_proj + A_targ
 
 theorem validate_compound_mass : A_compound = 313 := by
-  rfl
+  dsimp [A_compound, A_proj, A_targ]
+  norm_num
 
 /-- Reaction Q-value (MeV) -/
 def Q_reaction : ℝ := -233.80
@@ -153,7 +154,7 @@ theorem validate_E_cm_resonant : E_cm_resonant = 265.80 := by
   norm_num
 
 /-- Resonant laboratory beam energy: E_lab = E_cm * (A_proj + A_targ) / A_targ ≈ 334.18 MeV -/
-noncomputable def E_lab_theoretical : ℝ :=
+def E_lab_theoretical : ℝ :=
   E_cm_resonant * (A_compound / A_targ)
 
 theorem validate_E_lab_bounds : E_lab_theoretical > 334.0 ∧ E_lab_theoretical < 334.5 := by
@@ -175,4 +176,5 @@ theorem validate_alpha_cascade_progression :
   dsimp [E_alpha_1, E_alpha_2, E_alpha_3, E_alpha_4]
   refine ⟨by norm_num, by norm_num, by norm_num⟩
 
+end
 end KnoWellianSuperheavies

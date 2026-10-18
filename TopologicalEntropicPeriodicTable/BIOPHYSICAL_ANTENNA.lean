@@ -16,8 +16,10 @@ Formal machine-verification of:
 
 namespace KnoWellianBiophysics
 
+noncomputable section
+
 /-- Tower 4 biological height bound (meters) -/
-noncomputable def human_antenna_scale : ℝ :=
+def human_antenna_scale : ℝ :=
   KnoWellianHardware.K_77_Tower4BiologicalAntenna
 
 /-- Height of Atom archetype (68 inches) -/
@@ -38,7 +40,7 @@ def zygote_euler_characteristic : ℝ :=
   KnoWellianSoftware.ZFPD_099_ConceptionEuler
 
 /-- Latent Heat of Actualization Quantum (MJ) -/
-noncomputable def actualization_heat_MJ : ℝ :=
+def actualization_heat_MJ : ℝ :=
   KnoWellianHardware.K_79_LatentActualizationHeat / 1.0e6
 
 -- ====================================================================
@@ -61,6 +63,7 @@ theorem validate_albert_algebra_dimension :
 theorem validate_zygote_euler_scar :
     zygote_euler_characteristic = 2 := by
   dsimp [zygote_euler_characteristic, KnoWellianSoftware.ZFPD_099_ConceptionEuler]
+  norm_num
 
 /-- Theorem: Human antenna scale sits between 1.65 m and 1.70 m -/
 theorem validate_human_antenna_bounds :
@@ -74,4 +77,5 @@ theorem validate_actualization_heat_bounds :
   dsimp [actualization_heat_MJ, KnoWellianHardware.K_79_LatentActualizationHeat]
   constructor <;> norm_num
 
+end
 end KnoWellianBiophysics

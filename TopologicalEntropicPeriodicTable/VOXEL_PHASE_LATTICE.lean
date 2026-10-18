@@ -1,4 +1,5 @@
 import Mathlib.Basic.Real.Basic
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import Mathlib.Tactic.Ring
 import Mathlib.Tactic.NormNum
 import Mathlib.Tactic.Linarith
@@ -84,24 +85,27 @@ theorem validate_maximal_cp_violation : jarlskog_voxel_invariant = 1.0 := by
 -- ====================================================================
 
 /-- Minimal spatial displacement on the integer lattice (Planck floor: 1×1×1) -/
-def min_spatial_norm_squared (dx dy dz : ℤ) (h_nontrivial : dx ≠ 0 ∨ dy ≠ 0 ∨ dz ≠ 0) : ℤ :=
+def min_spatial_norm_squared (dx dy dz : ℤ) (_h_nontrivial : dx ≠ 0 ∨ dy ≠ 0 ∨ dz ≠ 0) : ℤ :=
   dx^2 + dy^2 + dz^2
 
 /-- Theorem: Non-trivial integer spatial displacement is strictly bounded below by 1 -/
 theorem validate_zero_divisor_floor (dx dy dz : ℤ) (h_nontrivial : dx ≠ 0 ∨ dy ≠ 0 ∨ dz ≠ 0) :
     dx^2 + dy^2 + dz^2 ≥ 1 := by
+  have hx_ge : dx^2 ≥ 0 := by positivity
+  have hy_ge : dy^2 ≥ 0 := by positivity
+  have hz_ge : dz^2 ≥ 0 := by positivity
   rcases h_nontrivial with hx | hy | hz
-  · have : dx^2 ≥ 1 := by nlinarith
-    have : dy^2 ≥ 0 := by nlinarith
-    have : dz^2 ≥ 0 := by nlinarith
+  · have h1 : dx^2 ≥ 1 := by
+      have : dx ≥ 1 ∨ dx ≤ -1 := by omega
+      rcases this with h | h <;> nlinarith
     linarith
-  · have : dx^2 ≥ 0 := by nlinarith
-    have : dy^2 ≥ 1 := by nlinarith
-    have : dz^2 ≥ 0 := by nlinarith
+  · have h1 : dy^2 ≥ 1 := by
+      have : dy ≥ 1 ∨ dy ≤ -1 := by omega
+      rcases this with h | h <;> nlinarith
     linarith
-  · have : dx^2 ≥ 0 := by nlinarith
-    have : dy^2 ≥ 0 := by nlinarith
-    have : dz^2 ≥ 1 := by nlinarith
+  · have h1 : dz^2 ≥ 1 := by
+      have : dz ≥ 1 ∨ dz ≤ -1 := by omega
+      rcases this with h | h <;> nlinarith
     linarith
 
 -- ====================================================================
@@ -112,7 +116,8 @@ theorem validate_zero_divisor_floor (dx dy dz : ℤ) (h_nontrivial : dx ≠ 0 �
 def voxel_surface_bit_ceiling : ℝ := 6.0
 
 theorem validate_holographic_voxel_ceiling : voxel_surface_bit_ceiling = 6 := by
-  rfl
+  dsimp [voxel_surface_bit_ceiling]
+  norm_num
 
 /-- Elementary charge unit e (Coulombs) -/
 noncomputable def elementary_charge : ℝ := 1.602176634e-19

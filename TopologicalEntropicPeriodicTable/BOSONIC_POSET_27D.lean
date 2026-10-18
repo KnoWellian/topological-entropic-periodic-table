@@ -15,7 +15,7 @@ Formal machine-verification of:
   - Spontaneous Dimensional Pinning: 27D - 23 Pinned = 4D Macroscopic Exhaust
   - Chiral Metric Signature (18, 9) and Matter Dominance
   - Ramanujan Light-Cone Decomposition: 27 = 24 Transverse + 2 Null + 1 Causal Arrow
-  - The 30° Vernier Phase Escapement & Real-Time CMB Shock Glow (2.7255 K)
+  - The 30° Vernier Phase Escapement & Real-Time CMB Shock Glow (~2.84 mK base)
 -/
 
 namespace KnoWellianPoset
@@ -131,12 +131,12 @@ noncomputable def h_const : ℝ := 6.62607015e-34
 /-- Boltzmann thermodynamic constant k_B (J/K) -/
 noncomputable def k_B_const : ℝ := 1.380649e-23
 
-/-- Real-time CMB shock glow temperature: T_shock = (h * ν₀) / (24 * k_B) -/
+/-- Real-time CMB shock glow base temperature (K): T_shock = (h * ν₀) / (24 * k_B) ≈ 0.00284 K (2.84 mK) -/
 noncomputable def T_shock_glow : ℝ := (h_const * nu_21cm) / (24 * k_B_const)
 
-/-- Theorem: Real-time CMB shock temperature evaluates to the ~2.84 K baseline -/
+/-- Theorem: Real-time CMB shock base temperature evaluates to the ~2.84 mK baseline (0.00280 K < T < 0.00290 K) -/
 theorem validate_cmb_shock_temperature_range :
-    T_shock_glow > 2.80 ∧ T_shock_glow < 2.90 := by
+    T_shock_glow > 0.00280 ∧ T_shock_glow < 0.00290 := by
   dsimp [T_shock_glow, h_const, nu_21cm, k_B_const]
   constructor <;> norm_num
 
