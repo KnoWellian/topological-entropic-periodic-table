@@ -1,12 +1,12 @@
 name = "topological-entropic-periodic-table"
 version = "0.1.0"
 keywords = ["physics", "math"]
+defaultTargets = ["TopologicalEntropicPeriodicTable"]
 
 [[lean_lib]]
 name = "TopologicalEntropicPeriodicTable"
 srcDir = "."
 roots = ["TopologicalEntropicPeriodicTable"]
-defaultFacets = ["LeanLib.oleanFacet"]
 
 [[require]]
 name = "mathlib"
@@ -16,4 +16,3 @@ version = "=4.35.0"
 [[dependency]]
 name = "doc-gen4"
 src = { git = "https://github.com/leanprover/doc-gen4", rev = "main" }
-
