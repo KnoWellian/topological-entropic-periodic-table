@@ -1,6 +1,6 @@
 # Comprehensive Project Verification Report
 **Project:** TopologicalEntropicPeriodicTable (4T-KUT Universe Theory)
-**Generated:** 2026-10-25 03:40:53
+**Generated:** 2026-10-25 04:55:18
 **Prover Kernel:** Lean 4.35.0 (Mathlib4)
 
 ## Module Summary
@@ -12,6 +12,8 @@
 | `Alpha.lean` | 13 | 13 | 0 | 0 | ✅ Verified |
 | `BIOPHYSICAL_ANTENNA.lean` | 5 | 7 | 0 | 0 | ✅ Verified |
 | `BOSONIC_POSET_27D.lean` | 7 | 24 | 0 | 0 | ✅ Verified |
+| `CHIRAL_TRIAD_TOPOLOGY.lean` | 10 | 13 | 0 | 0 | ✅ Verified |
+| `DIRAC_LYNCH_SYNTHESIS.lean` | 15 | 20 | 0 | 0 | ✅ Verified |
 | `DYNAMIC_LOOM_KINEMATICS.lean` | 11 | 47 | 0 | 0 | ✅ Verified |
 | `Elements.lean` | 11 | 13 | 0 | 0 | ✅ Verified |
 | `Entropic.lean` | 8 | 10 | 0 | 0 | ✅ Verified |
@@ -22,7 +24,7 @@
 | `TENSOR_BEDROCK_FLOORS.lean` | 15 | 30 | 0 | 0 | ✅ Verified |
 | `Universe.lean` | 3 | 7 | 0 | 0 | ✅ Verified |
 | `VOXEL_PHASE_LATTICE.lean` | 6 | 13 | 0 | 0 | ✅ Verified |
-| **TOTALS** | **145** | **382** | **2** | **0** | **✅ 100% SOUND** |
+| **TOTALS** | **170** | **415** | **2** | **0** | **✅ 100% SOUND** |
 
 ## Itemized Declarations by Module
 
@@ -162,6 +164,74 @@
   - `def h_const`
   - `def k_B_const`
   - `def T_shock_glow`
+
+### `CHIRAL_TRIAD_TOPOLOGY.lean`
+- **Status:** ✅ Verified (0 sorry)
+- **Verified Theorems (10):**
+  - `theorem canonical_baryogenesis_asymmetry`
+  - `theorem cairo_v3_closure`
+  - `theorem color_confinement_re_cancels`
+  - `theorem color_confinement_im_cancels`
+  - `theorem spinor_360_cos_inversion`
+  - `theorem spinor_360_sin_inversion`
+  - `theorem spinor_720_cos_identity`
+  - `theorem spinor_720_sin_identity`
+  - `theorem manifold_closing_speed_exact`
+  - `theorem brunnian_pairwise_decoupling`
+- **Formal Definitions (13):**
+  - `def chiralCharge`
+  - `def canonicalTriad`
+  - `def netChiralCharge`
+  - `def theta_V3`
+  - `def root1_re`
+  - `def root1_im`
+  - `def root2_re`
+  - `def root2_im`
+  - `def root3_re`
+  - `def root3_im`
+  - `def c_KUT`
+  - `def closingVelocity`
+  - `def brunnianPairwiseLink`
+
+### `DIRAC_LYNCH_SYNTHESIS.lean`
+- **Status:** ✅ Verified (0 sorry)
+- **Verified Theorems (15):**
+  - `theorem iturn_squared_is_inversion`
+  - `theorem iturn_quartic_is_identity`
+  - `theorem gamma_time_square`
+  - `theorem gamma_space_square`
+  - `theorem validate_trefoil_winding_ratio`
+  - `theorem phase_accumulation_360`
+  - `theorem phase_accumulation_720`
+  - `theorem spinor_360_eigenvalue`
+  - `theorem spinor_720_eigenvalue`
+  - `theorem four_component_architecture_orthogonal`
+  - `theorem knode_volume_positive`
+  - `theorem validate_planck_momentum_cutoff`
+  - `theorem topological_mass_identity`
+  - `theorem validate_topological_tension_bounds`
+  - `theorem self_energy_cutoff_ratio_large`
+- **Formal Definitions (20):**
+  - `def advanceITurn`
+  - `def metricSign`
+  - `def torus_p`
+  - `def torus_q`
+  - `def windingRatio`
+  - `def spinorEigenvalueMod2Pi`
+  - `def state_Psi_1`
+  - `def state_Psi_2`
+  - `def state_Psi_3`
+  - `def state_Psi_4`
+  - `def spinProjection`
+  - `def energySign`
+  - `def l_P`
+  - `def m_P`
+  - `def c_const`
+  - `def hbar_const`
+  - `def V_min`
+  - `def Lambda_DL`
+  - `def m_e`
+  - `def T_3_2`
 
 ### `DYNAMIC_LOOM_KINEMATICS.lean`
 - **Status:** ✅ Verified (0 sorry)
