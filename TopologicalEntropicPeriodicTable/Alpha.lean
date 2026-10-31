@@ -1,15 +1,10 @@
-import Mathlib.Basic.Real.Basic
 import Mathlib.Analysis.Real.Sqrt
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import Mathlib.Algebra.Polynomial.Basic
 import Mathlib.Algebra.Polynomial.Eval.Defs
 import Mathlib.Basic.Complex.Basic
-import Mathlib.Tactic.Ring
-import Mathlib.Tactic.Linarith
-import Mathlib.Tactic.NormNum
-import Mathlib.Tactic.Positivity
 
-/-!
+/-
 Copyright (c) 2026 David Noel Lynch. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: David Noel Lynch
@@ -22,7 +17,7 @@ set_option linter.style.longLine false
 
 open Real
 
-namespace KnoWellianGeon
+namespace KnoWellianGeon.Foundations
 
 /-- The Base Geometric Polynomial S₀ = 4π³ + π² + π -/
 noncomputable def bgSum : ℝ := 4 * π^3 + π^2 + π
@@ -141,9 +136,9 @@ def rankDimension (b : CliffordBasis) : Nat :=
 /-- Theorem verifying Eddington's basis dimension sums to 16. -/
 theorem clifford_basis_dim_sixteen :
     rankDimension CliffordBasis.I +
-    rankDimension (CliffordBasis.Vector 0 (by linarith)) +
-    rankDimension (CliffordBasis.Bivector 0 1 (by constructor <;> linarith)) +
-    rankDimension (CliffordBasis.AxialVector 0 (by linarith)) +
+    rankDimension (CliffordBasis.Vector 0 (by decide)) +
+    rankDimension (CliffordBasis.Bivector 0 1 (by decide)) +
+    rankDimension (CliffordBasis.AxialVector 0 (by decide)) +
     rankDimension CliffordBasis.Pseudoscalar = 16 := rfl
 
 -- ==========================================
@@ -159,6 +154,8 @@ theorem eddington_symmetric_terms : symDim 16 = 136 := rfl
 -- ==========================================
 -- TOPOLOGICAL KNOT POLYNOMIAL LAYER
 -- ==========================================
+
+open scoped Polynomial
 
 /-- The Alexander Polynomial Δ_K(t) = t² - t + 1 over ℤ[X]. -/
 noncomputable def trefoilAlexanderPoly : Polynomial ℤ := Polynomial.X ^ 2 - Polynomial.X + 1
@@ -179,13 +176,11 @@ theorem alexander_poly_complex_roots (z : ℂ) (h : z ^ 2 - z + 1 = 0) :
 -- TRANSMISSION LINE APERTURE LAYER
 -- ==========================================
 
-/-- The voltage transmission coefficient across the boundary between
-the internal high-impedance core (2 * R_K) and the open vacuum (Z_0). -/
+/-- The voltage transmission coefficient across the boundary. -/
 noncomputable def transmissionCoeff (Z_0 R_K : ℝ) : ℝ :=
   (2 * Z_0) / (Z_0 + 2 * R_K)
 
-/-- Theorem machine-verifying that your master impedance identity (α)
-collapses the transmission fraction exactly to 2α / (α + 1). -/
+/-- Theorem machine-verifying that your master impedance identity collapses the transmission fraction. -/
 theorem transmission_identity (Z_0 R_K α : ℝ) (h_alpha : α = Z_0 / (2 * R_K))
     (h_pos_RK : R_K ≠ 0) (h_denom : α + 1 ≠ 0) (_ : Z_0 + 2 * R_K ≠ 0) :
     transmissionCoeff Z_0 R_K = (2 * α) / (α + 1) := by
@@ -213,4 +208,4 @@ theorem conformal_scale_invariant (Ω : ℝ) (_ : Ω ≠ 0) :
   change Ω ^ (0 : Int) = 1
   exact zpow_zero Ω
 
-end KnoWellianGeon
+end KnoWellianGeon.Foundations
