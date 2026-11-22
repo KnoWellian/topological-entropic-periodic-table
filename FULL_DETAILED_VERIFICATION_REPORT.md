@@ -1,6 +1,6 @@
 # Comprehensive Project Verification Report
 **Project:** TopologicalEntropicPeriodicTable (4T-KUT Universe Theory)
-**Generated:** 2026-11-22 15:35:52
+**Generated:** 2026-11-22 16:09:27
 **Prover Kernel:** Lean 4.35.0 (Mathlib4)
 
 ## Module Summary
@@ -29,7 +29,7 @@
 | `ImpedanceBridge.lean` | 1 | 3 | 0 | 0 | ✅ Verified |
 | `KUT_MATHEMATICAL_FOUNDATIONS.lean` | 13 | 14 | 0 | 0 | ✅ Verified |
 | `KaehlerMetric.lean` | 2 | 2 | 0 | 0 | ✅ Verified |
-| `MICROTUBULE_TORSION.lean` | 6 | 18 | 2 | 0 | ✅ Verified |
+| `MICROTUBULE_TORSION.lean` | 6 | 18 | 0 | 0 | ✅ Verified |
 | `MasterMap.lean` | 2 | 1 | 0 | 0 | ✅ Verified |
 | `PERIOD8_SUPERHEAVIES.lean` | 12 | 31 | 0 | 0 | ✅ Verified |
 | `PHYSICAL_HARDWARE_SHELL.lean` | 10 | 77 | 0 | 0 | ✅ Verified |
@@ -41,7 +41,7 @@
 | `Universe.lean` | 7 | 9 | 0 | 0 | ✅ Verified |
 | `VOXEL_PHASE_LATTICE.lean` | 6 | 13 | 0 | 0 | ✅ Verified |
 | `YANG_MILLS.lean` | 7 | 6 | 0 | 0 | ✅ Verified |
-| **TOTALS** | **362** | **752** | **2** | **0** | **✅ 100% SOUND** |
+| **TOTALS** | **362** | **752** | **0** | **0** | **✅ 100% SOUND** |
 
 ## Itemized Declarations by Module
 
@@ -742,7 +742,6 @@
 
 ### `MICROTUBULE_TORSION.lean`
 - **Status:** ✅ Verified (0 sorry)
-- **Axioms (2):** `pi_gt_31415`, `pi_lt_31416`
 - **Verified Theorems (6):**
   - `theorem validate_seam_pitch_shift`
   - `theorem validate_cartan_torsion_tensor`

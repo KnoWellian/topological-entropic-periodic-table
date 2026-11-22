@@ -1,6 +1,7 @@
 import Mathlib.Basic.Real.Basic
 import Mathlib.Analysis.Real.Sqrt
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+import Mathlib.Analysis.Real.Pi.Bounds
 import Mathlib.Tactic.Ring
 import Mathlib.Tactic.NormNum
 import Mathlib.Tactic.Positivity
@@ -56,10 +57,6 @@ theorem validate_seam_pitch_shift : delta_h_seam = 12 := by
 -- SECTION 2: CARTAN TORSION TENSOR DERIVATION
 -- ====================================================================
 
-/-- Axiomatic bounds on Real.pi: 3.1415 < π < 3.1416 -/
-axiom pi_gt_31415 : (3.1415 : ℝ) < Real.pi
-axiom pi_lt_31416 : Real.pi < (3.1416 : ℝ)
-
 /-- Cartan Torsion Tensor component: T^θ_rz = Δh_seam / (2π * R_lumen * L_dimer) (nm⁻¹) -/
 def T_theta_rz : ℝ :=
   delta_h_seam / (2 * Real.pi * R_lumen * L_dimer)
@@ -68,8 +65,8 @@ def T_theta_rz : ℝ :=
 theorem validate_cartan_torsion_tensor :
     T_theta_rz > 0.0317 ∧ T_theta_rz < 0.0319 := by
   dsimp [T_theta_rz, delta_h_seam, h_monomer, R_lumen, D_inner, L_dimer]
-  have h_pi_lb : (3.1415 : ℝ) < Real.pi := pi_gt_31415
-  have h_pi_ub : Real.pi < (3.1416 : ℝ) := pi_lt_31416
+  have h_pi_lb : (3.1415 : ℝ) < Real.pi := Real.pi_gt_d4
+  have h_pi_ub : Real.pi < (3.1416 : ℝ) := Real.pi_lt_d4
   have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
   constructor
   · rw [gt_iff_lt, lt_div_iff₀ (by positivity)]
