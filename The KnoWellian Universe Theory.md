@@ -30,7 +30,7 @@
 | **Formal Verification Suite** | `TopologicalEntropicPeriodicTable` (Lean `v4.35.0` / Mathlib4) |
 | **Verification Audit Metrics** | **34 Modules** · **362 Verified Theorems** · **752 Formal Definitions** · **0 `sorry` Placeholders** · **0 Custom Axioms** |
 | **Code License (Lean 4 Suite)** | Apache License 2.0 |
-| **Archival Target** | Zenodo Permanent Open-Access Repository (`[DOI Assigned Upon Deposit]`) |
+| **Archival Target** | Zenodo Permanent Open-Access Repository (`[DOI 10.5281/zenodo.23913624](https://doi.org/10.5281/zenodo.23913624)]`) |
 
 ---
 
